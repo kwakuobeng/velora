@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function Home(){return <main className="shell"><span className="chip">Velora · M0</span><h1>Landscaping, with a calmer flow.</h1><p className="lede">The application foundation is ready. Brand tokens, Supabase client stubs, validation tooling, tests, and CI are wired without implementing M1 product logic.</p><div className="actions"><Link className="button buttonPrimary" href="/tokens">Get Quote</Link><Link className="button buttonSecondary" href="/tokens">View tokens</Link></div></main>;}

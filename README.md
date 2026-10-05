@@ -90,3 +90,27 @@ After deploy, update Formspree and contact placeholders if you have not already.
 - **Testimonials:** three sample quotes for layout; not real customer reviews.
 - **Hero price card:** illustrative sample ($45 bi-weekly Plano lot) — not a live pricing API.
 - **Formspree file uploads:** free Formspree plans may limit attachments; confirm your plan supports multiple image uploads if photos are critical.
+
+
+## M0 Next.js app
+
+M0 adds a standalone Next.js App Router + TypeScript project under `/app` while keeping the static marketing site at the repository root.
+
+```bash
+cd app
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000/tokens` for the brand token demo.
+
+The Supabase values are placeholders only. M0 includes browser/server client stubs and Zod validation, but no pricing engine, quote workflow, database schema, or APIs.
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+Pull requests run those checks through GitHub Actions.
