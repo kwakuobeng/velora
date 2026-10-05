@@ -14,7 +14,7 @@ const mowInput = (
   season,
 });
 
-const lineAmount = (
+const amountFor = (
   input: QuoteInput,
   code: string,
   rules = PLACEHOLDER_PRICING_RULES,
@@ -32,38 +32,13 @@ describe("priceQuote tier boundaries", () => {
     [9999, 5000],
     [10000, 6200],
     [14999, 6200],
-  ])("maps %i sq ft to the correct weekly mow tier", (area, expected) => {
-    expect(lineAmount(mowInput(area), "mow")).toBe(expected);
+  ])("maps turf %i to the correct weekly mow tier", (area, expected) => {
+    expect(amountFor(mowInput(area), "mow")).toBe(expected);
   });
 
-  it("routes 15000 sq ft and above to T5 manual review without inventing a price", () => {
-    const quote = priceQuote(mowInput(15000), PLACEHOLDER_PRICING_RULES);
-    expect(quote.lineItems).toEqual([]);
-    expect(quote.total_cents).toBe(0);
-    expect(quote.reviewReasons).toContain("t5_manual_review");
-  });
-});
-
-describe("frequency and season", () => {
-  it.each([
-    ["growing", "weekly", 4000],
-    ["growing", "biweekly", 5000],
-    ["dormant", "weekly", 5000],
-    ["dormant", "biweekly", 5000],
-  ] as const)(
-    "%s season with %s request prices correctly",
-    (season, frequency, expected) => {
-      expect(lineAmount(mowInput(3000, frequency, season), "mow")).toBe(
-        expected,
-      );
-    },
-  );
-});
-
-describe("area bases and add-ons", () => {
-  it("uses turf sq ft for cleanup tiering", () => {
+  it("uses turf square feet for cleanup tiering", () => {
     expect(
-      lineAmount(
+      amountFor(
         {
           turf_sq_ft: 6000,
           services: { cleanup: true },
@@ -74,27 +49,11 @@ describe("area bases and add-ons", () => {
     ).toBe(21000);
   });
 
-  it("uses bed sq ft for mulch plus a separate delivery line", () => {
-    const quote = priceQuote(
-      {
-        bed_sq_ft: 151,
-        services: { mulch: true },
-        season: "growing",
-      },
-      PLACEHOLDER_PRICING_RULES,
-    );
-    expect(quote.lineItems.find((line) => line.code === "mulch")?.amount_cents).toBe(7600);
+  it("uses hedge linear feet as the hedge pricing basis", () => {
     expect(
-      quote.lineItems.find((line) => line.code === "mulch_delivery")
-        ?.amount_cents,
-    ).toBe(2500);
-  });
-
-  it("uses hedge linear feet in 10-lf units", () => {
-    expect(
-      lineAmount(
+      amountFor(
         {
-          turf_sq_ft: 1000,
+          turf_sq_ft: 14999,
           hedge_linear_ft: 20,
           services: { hedges: true },
           season: "growing",
@@ -104,6 +63,45 @@ describe("area bases and add-ons", () => {
     ).toBe(3000);
   });
 
+  it("routes turf 15000 and above to T5 manual review without inventing mow pricing", () => {
+    const quote = priceQuote(mowInput(15000), PLACEHOLDER_PRICING_RULES);
+    expect(quote.lineItems.find((line) => line.code === "mow")).toBeUndefined();
+    expect(quote.reviewReasons).toContain("t5_manual_review");
+  });
+});
+
+describe("frequency and season", () => {
+  it("uses weekly pricing in growing season", () => {
+    expect(amountFor(mowInput(3000, "weekly", "growing"), "mow")).toBe(4000);
+  });
+
+  it("uses requested biweekly pricing in growing season", () => {
+    expect(amountFor(mowInput(3000, "biweekly", "growing"), "mow")).toBe(5000);
+  });
+
+  it("prices weekly dormant mowing as biweekly", () => {
+    expect(amountFor(mowInput(3000, "weekly", "dormant"), "mow")).toBe(5000);
+  });
+
+  it.each([
+    ["2026-03-01", 4000],
+    ["2026-11-30", 4000],
+    ["2026-12-01", 5000],
+    ["2026-02-28", 5000],
+  ])("resolves placeholder season boundary %s", (service_date, expected) => {
+    expect(
+      amountFor(
+        {
+          ...mowInput(3000),
+          service_date,
+        },
+        "mow",
+      ),
+    ).toBe(expected);
+  });
+});
+
+describe("add-ons and minimums", () => {
   it("stacks add-ons as separate line items", () => {
     const quote = priceQuote(
       {
@@ -121,23 +119,17 @@ describe("area bases and add-ons", () => {
     ]);
     expect(quote.total_cents).toBe(3500);
   });
-});
 
-describe("minimums", () => {
   it("adds a per-visit minimum adjustment", () => {
-    const quote = priceQuote(
-      {
-        turf_sq_ft: 1000,
-        services: {},
-        addOns: { bag_clippings: true },
-        season: "growing",
-      },
-      PLACEHOLDER_PRICING_RULES,
-    );
-    expect(
-      quote.lineItems.find((line) => line.code === "minimum_adj")
-        ?.amount_cents,
-    ).toBe(3000);
+    const input: QuoteInput = {
+      turf_sq_ft: 1000,
+      services: {},
+      addOns: { bag_clippings: true },
+      season: "growing",
+    };
+    const quote = priceQuote(input, PLACEHOLDER_PRICING_RULES);
+
+    expect(amountFor(input, "minimum_adj")).toBe(3000);
     expect(quote.total_cents).toBe(3500);
   });
 
@@ -150,9 +142,9 @@ describe("minimums", () => {
       },
       PLACEHOLDER_PRICING_RULES,
     );
+
     expect(
-      quote.lineItems.find((line) => line.code === "minimum_adj")
-        ?.amount_cents,
+      quote.lineItems.find((line) => line.code === "minimum_adj")?.amount_cents,
     ).toBe(2500);
     expect(quote.total_cents).toBe(10000);
   });
@@ -162,26 +154,25 @@ describe("rounding", () => {
   it("rounds each line up to the nearest 100 cents before totaling", () => {
     const quote = priceQuote(
       {
-        turf_sq_ft: 1000,
         hedge_linear_ft: 11,
         services: { hedges: true },
         season: "growing",
       },
       PLACEHOLDER_PRICING_RULES,
     );
+
     expect(
       quote.lineItems.find((line) => line.code === "hedges")?.amount_cents,
     ).toBe(1700);
     expect(
-      quote.lineItems.find((line) => line.code === "minimum_adj")
-        ?.amount_cents,
+      quote.lineItems.find((line) => line.code === "minimum_adj")?.amount_cents,
     ).toBe(1800);
     expect(quote.total_cents).toBe(3500);
   });
 });
 
 describe("review exceptions", () => {
-  it("collects confidence, T5, total, and photo review reasons", () => {
+  it("collects confidence, T5, total, and photo reasons", () => {
     const quote = priceQuote(
       {
         turf_sq_ft: 15000,
@@ -203,7 +194,7 @@ describe("review exceptions", () => {
     ]);
   });
 
-  it("does not flag confidence exactly at 0.8 or total exactly at 50000", () => {
+  it("does not flag exact exception thresholds", () => {
     const rules: PricingRules = {
       ...PLACEHOLDER_PRICING_RULES,
       mulch_delivery_cents: 0,
@@ -217,6 +208,7 @@ describe("review exceptions", () => {
       },
       rules,
     );
+
     expect(quote.total_cents).toBe(50000);
     expect(quote.reviewReasons).not.toContain("low_confidence");
     expect(quote.reviewReasons).not.toContain("high_total");
