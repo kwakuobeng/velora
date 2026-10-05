@@ -114,3 +114,17 @@ npm run build
 ```
 
 Pull requests run those checks through GitHub Actions.
+
+
+## M1 pricing engine
+
+M1 adds the pure pricing engine under `app/lib/pricing/`. The included rules are explicitly **PLACEHOLDER** fixtures, not live prices. All money values are integer cents and `priceQuote(input, rules)` performs no I/O.
+
+Run the pricing tests with:
+
+```bash
+cd app
+npm test
+```
+
+Vitest covers tier boundaries, frequency/season behavior, area bases, add-ons, minimum adjustments, per-line rounding, review exceptions, and deterministic output for an unchanged `pricing_version`.
