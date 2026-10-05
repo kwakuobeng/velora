@@ -3,6 +3,7 @@ import type {
   PriceLineItem,
   PriceQuoteOutput,
   PricingRules,
+  PricingSeason,
   QuoteInput,
   ReviewReason,
   TierRules,
@@ -16,6 +17,27 @@ const findTier = (area: number, rules: PricingRules): TierRules | undefined =>
       area >= tier.area_min &&
       (tier.area_max === null || area < tier.area_max),
   );
+
+const seasonFromDate = (
+  serviceDate: string | undefined,
+  fallback: PricingSeason,
+  rules: PricingRules,
+): PricingSeason => {
+  if (!serviceDate) return fallback;
+
+  const match = /^\d{4}-(\d{2}-\d{2})$/.exec(serviceDate);
+  if (!match) return fallback;
+
+  const monthDay = match[1];
+  const { growing_start: start, growing_end: end } = rules.season;
+
+  const isGrowing =
+    start <= end
+      ? monthDay >= start && monthDay <= end
+      : monthDay >= start || monthDay <= end;
+
+  return isGrowing ? "growing" : "dormant";
+};
 
 const pushLine = (
   lines: PriceLineItem[],
@@ -37,6 +59,8 @@ export function priceQuote(
   const bedArea = input.bed_sq_ft ?? 0;
   const hedgeLinearFt = input.hedge_linear_ft ?? 0;
   const turfTier = findTier(turfArea, rules);
+  const hedgeTier = findTier(hedgeLinearFt, rules);
+  const season = seasonFromDate(input.service_date, input.season, rules);
 
   if (
     input.confidence !== undefined &&
@@ -54,7 +78,7 @@ export function priceQuote(
   if (input.services.mow && turfTier) {
     const requestedFrequency = input.services.mow.frequency;
     const effectiveFrequency: Frequency =
-      input.season === "dormant" && requestedFrequency === "weekly"
+      season === "dormant" && requestedFrequency === "weekly"
         ? rules.season.dormant_weekly_mow_frequency
         : requestedFrequency;
     const rate =
@@ -91,7 +115,7 @@ export function priceQuote(
   }
 
   if (input.services.hedges) {
-    const rate = turfTier?.hedges_per_10lf_cents;
+    const rate = hedgeTier?.hedges_per_10lf_cents;
     if (rate !== null && rate !== undefined) {
       pushLine(
         lineItems,
@@ -111,16 +135,19 @@ export function priceQuote(
     );
   }
 
-  const hasVisitLine = lineItems.some((line) =>
-    ["mow", "hedges", "bag_clippings"].includes(line.code),
+  const hasVisitService = Boolean(
+    input.services.mow ||
+      input.services.hedges ||
+      input.addOns?.bag_clippings,
   );
-  const hasJobLine = lineItems.some((line) =>
-    ["cleanup", "mulch", "mulch_delivery"].includes(line.code),
+  const hasJobService = Boolean(input.services.cleanup || input.services.mulch);
+  const subtotal = lineItems.reduce(
+    (sum, item) => sum + item.amount_cents,
+    0,
   );
-  const subtotal = lineItems.reduce((sum, item) => sum + item.amount_cents, 0);
   const requiredMinimum = Math.max(
-    hasVisitLine ? rules.minimums.visit_cents : 0,
-    hasJobLine ? rules.minimums.job_cents : 0,
+    hasVisitService ? rules.minimums.visit_cents : 0,
+    hasJobService ? rules.minimums.job_cents : 0,
   );
 
   if (subtotal < requiredMinimum) {
