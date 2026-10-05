@@ -21,6 +21,8 @@ export interface QuoteInput {
     bag_clippings?: boolean;
   };
   season: PricingSeason;
+  /** Optional YYYY-MM-DD; when present, rules.season resolves growing/dormant. */
+  service_date?: string;
   confidence?: number;
   photo_flag?: boolean;
 }
