@@ -128,3 +128,17 @@ npm test
 ```
 
 Vitest covers tier boundaries, frequency/season behavior, area bases, add-ons, minimum adjustments, per-line rounding, review exceptions, and deterministic output for an unchanged `pricing_version`.
+
+
+## M1 pricing engine
+
+The pure pricing engine lives under `app/lib/pricing/`. Its rule fixture is clearly labeled **PLACEHOLDER** and contains no live pricing.
+
+Run the pricing tests with the app test suite:
+
+```bash
+cd app
+npm test
+```
+
+Vitest covers tier boundaries, seasonal frequency behavior, add-ons, minimum adjustments, line rounding, review exceptions, and deterministic output for an unchanged `pricing_version`.
