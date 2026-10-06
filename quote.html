@@ -44,11 +44,13 @@
           -->
           <div id="form-error-banner" class="form-error-banner" role="alert"></div>
 
+          <noscript><p>Online quote requests require JavaScript. Please enable it and reload this page to check availability.</p></noscript>
           <form id="quote-form"
                 action="https://formspree.io/f/YOUR_FORMSPREE_ID"
                 method="POST"
                 enctype="multipart/form-data"
                 novalidate>
+            <fieldset id="quote-fields" disabled style="border:0;padding:0;margin:0;min-width:0">
 
             <div class="form-row">
               <div class="form-group">
@@ -124,6 +126,7 @@
             <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
             <button type="submit" id="submit-btn" class="btn btn-primary btn-block">Get Quote</button>
+            </fieldset>
           </form>
 
           <div id="form-success" class="form-success" role="status">
