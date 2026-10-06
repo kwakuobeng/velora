@@ -90,3 +90,18 @@ After deploy, update Formspree and contact placeholders if you have not already.
 - **Testimonials:** three sample quotes for layout; not real customer reviews.
 - **Hero price card:** illustrative sample ($45 bi-weekly Plano lot) — not a live pricing API.
 - **Formspree file uploads:** free Formspree plans may limit attachments; confirm your plan supports multiple image uploads if photos are critical.
+
+## Handoff risk controls
+
+Verified 2026-10-06 against the current repository. This section records release dependencies; it does not certify the deployed preview.
+
+- Repository access is working. M0 and M1 remain open pull requests; the static site on main is separate from that app work.
+- Quote intake defaults to disabled in HTML. JavaScript enables it only when a concrete Formspree endpoint is configured. The placeholder endpoint shows an upfront availability message. A valid endpoint still needs an end-to-end delivery check before launch.
+- The current main branch has no ZIP checker. The handoff's four-city ZIP-check claim must be traced to its actual implementation before changing coverage. Keep the existing city list pending the owner's confirmed coverage.
+- Homepage design is unresolved: Fieldhand striped lawn versus split layout/night house. Decision owner: Kwaku. Required before homepage implementation. Do not treat either conflicting approval report as final.
+- Asset transfer owner (proposed): design owner, coordinated by PM. Required before design implementation: export the selected homepage, builder prompt, design tokens, adaptation notes, image credits, logo source/export and app MVP spec from the design workspace. Check these into the appropriate project repository and confirm another collaborator can open them. A file path alone is not a backup.
+- Business configuration owner: Kwaku. Required before public launch: real form endpoint, phone, email, hours, confirmed coverage and pricing. Existing sample testimonials must be replaced with verified reviews or removed. Example prices must remain explicitly labeled until approved.
+- Logo release dependency: obtain documented commercial-use rights or an approved replacement before publishing the selected mark. License purchase has not been verified.
+- Release verification owner (proposed): implementation owner. Required before launch: submit a test quote, confirm actual receipt, check coverage messaging, and inspect the published output for internal documents and private links. Publish only intended site assets.
+
+The dates above describe verification, not commitments by collaborators. Proposed owners need acknowledgement; the dependency deadlines prevent treating unfinished items as launch-ready.
