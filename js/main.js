@@ -38,6 +38,29 @@
   var MAX_FILES = 5;
   var MAX_SIZE = 5 * 1024 * 1024; // 5 MB each
 
+  // Fail closed before collecting customer details when intake is unavailable.
+  var quoteAction = form.getAttribute("action") || "";
+  var intakeReady = /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(quoteAction);
+  if (!intakeReady) {
+    if (errorBanner) {
+      errorBanner.textContent = "Online quote requests are not available yet. Please check back soon.";
+      errorBanner.classList.add("show");
+    }
+    form.querySelectorAll("input, select, textarea, button").forEach(function (el) {
+      el.disabled = true;
+    });
+    if (uploadZone) {
+      uploadZone.setAttribute("aria-disabled", "true");
+      uploadZone.setAttribute("tabindex", "-1");
+    }
+    if (submitBtn) submitBtn.textContent = "Quotes unavailable";
+    form.addEventListener("submit", function (event) { event.preventDefault(); });
+    return;
+  }
+
+  var quoteFields = document.getElementById("quote-fields");
+  if (quoteFields) quoteFields.disabled = false;
+
   function showError(input, message) {
     input.classList.add("error");
     var err = input.parentElement.querySelector(".field-error");
