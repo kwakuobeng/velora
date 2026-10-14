@@ -14,7 +14,7 @@ Deploy only `mynticlean/dist`, or set a separate hosting project root to `myntic
 
 ## Wordmark and design studies
 
-The visible wordmark is now lowercase `mynticlean`, with no wand mark or favicon. The original `public/favicon.svg` and `components/LogoMark.js` are retained as unused reference assets. Manrope loads from Google Fonts with system sans fallback.
+The visible wordmark is now lowercase `mynticlean`, with no wand mark or favicon. The original `public/favicon.svg` and `components/LogoMark.js` are retained as unused reference assets. Manrope is the single typeface across the main site, all concepts, and the comparison gallery. It loads from Google Fonts with a system sans fallback; emphasis uses the same upright font.
 
 Open `/directions.html` for three original, animated design studies: Soft Reset (`?direction=soft`), Fresh Energy (`?direction=fresh`), and Room for Light (`?direction=light`). All reuse the working example quote and service dialogs. The homepage without a direction parameter preserves the current design. These are selectable proposals rather than an approved redesign. Inspiration links appear in the direction gallery; no template code or paid assets are used. Reduced-motion users receive static scenes and visible content.
 

@@ -102,7 +102,7 @@
 }
 .soft-card > i {
   display: block;
-  font-family: Georgia, serif;
+  font-family: inherit;
   font-size: 34px;
   line-height: 1.15;
   margin-top: 15px;
@@ -207,7 +207,7 @@
   letter-spacing: -0.07em;
 }
 .energy-disc i {
-  font-family: Georgia, serif;
+  font-family: inherit;
   font-weight: 400;
 }
 .energy-ring {
@@ -300,7 +300,7 @@
   letter-spacing: -0.05em;
 }
 [data-direction="light"] h1 {
-  font-family: Georgia, serif;
+  font-family: inherit;
   font-size: clamp(64px, 8vw, 116px);
   font-weight: 400;
   line-height: 1.04;
@@ -370,9 +370,9 @@
   position: absolute;
   z-index: 3;
   color: #fffdf3;
-  font-family: Georgia, serif;
+  font-family: inherit;
   font-size: 110px;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: -0.06em;
   bottom: 30px;
   right: 7%;
@@ -389,7 +389,7 @@
 [data-direction="light"] .section h2,
 [data-direction="light"] .plans h2,
 [data-direction="light"] .closing h2 {
-  font-family: Georgia, serif;
+  font-family: inherit;
   letter-spacing: -0.055em;
 }
 [data-direction="light"] .service-card {
