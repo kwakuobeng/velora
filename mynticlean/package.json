@@ -7,7 +7,7 @@
     "dev": "node scripts/serve.mjs",
     "start": "node scripts/serve.mjs dist",
     "build": "node scripts/build.mjs",
-    "check": "node --check app.js && node --check components/LogoMark.js"
+    "check": "node --check app.js && node --check components/LogoMark.js && node --check directions.js"
   },
   "engines": {
     "node": ">=20"
