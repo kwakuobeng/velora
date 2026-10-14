@@ -1,5 +1,5 @@
 /** Reusable concept 19 mark, sourced from the exact hand-built favicon SVG. */
-export function LogoMark({ size = 32 } = {}) {
+function LogoMark({ size = 32 } = {}) {
   const img = document.createElement("img");
   img.src = "./public/favicon.svg";
   img.width = size;

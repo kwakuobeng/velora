@@ -1,4 +1,3 @@
-import "./components/LogoMark.js";
 const $ = (s) => document.querySelector(s);
 const services = [
   {

@@ -25,3 +25,7 @@ Book a Clean leads to the quote widget. Get Quote opens an honest example summar
 Trust cards are explicitly labeled placeholders: no reviews, ratings, invented statistics, insurance claims or photographs. Native dialogs provide focus containment, Escape dismissal, close controls and focus restoration. Motion respects prefers-reduced-motion. The hero sheen uses CSS shapes and a passive scroll handler.
 
 Before launch, confirm scope, pricing, working email, business policies and booking integration. No live deployment is part of this scaffold.
+
+## Viewing the actual webpage
+
+A GitHub PR or GitHub file link displays source, not a hosted webpage. For a rendered site, run `npm run dev`, or run `npm run build` and open `dist/index.html` directly in a browser. The built HTML embeds all scripts, styling, and logo assets; no local server or JavaScript module loading is required. An optional Google Fonts request can fall back to system fonts. Source `index.html` also uses classic deferred scripts so opening it in place works with its adjacent assets. Logo images appear even before JavaScript runs.
