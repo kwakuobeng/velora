@@ -40,7 +40,8 @@
 
   function showError(input, message) {
     input.classList.add("error");
-    var err = input.parentElement.querySelector(".field-error");
+    var group = input.closest(".form-group");
+    var err = group && group.querySelector(".field-error");
     if (err) {
       err.textContent = message;
       err.classList.add("show");
@@ -49,7 +50,8 @@
 
   function clearError(input) {
     input.classList.remove("error");
-    var err = input.parentElement.querySelector(".field-error");
+    var group = input.closest(".form-group");
+    var err = group && group.querySelector(".field-error");
     if (err) {
       err.textContent = "";
       err.classList.remove("show");
@@ -150,6 +152,12 @@
 
   if (uploadZone && fileInput) {
     uploadZone.addEventListener("click", function () { fileInput.click(); });
+    uploadZone.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        fileInput.click();
+      }
+    });
 
     fileInput.addEventListener("change", function () {
       addFiles(fileInput.files);

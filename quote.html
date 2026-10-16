@@ -1,1 +1,286 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Request a flat-rate landscaping quote from Velora. Satellite measurement, clear pricing, DFW residential service."><meta property="og:title" content="Get Quote | Velora"><meta property="og:description" content="Request a flat-rate landscaping quote across Dallas–Fort Worth."><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="css/styles.css"><title>Get Quote | Velora Landscaping DFW</title></head><body><header class="site-header"><div class="container nav"><a class="logo-lockup" href="index.html"><img src="assets/logo-lockup.svg" alt="Velora"></a><nav class="nav-links" aria-label="Main"><a href="services.html">Services</a><a href="index.html#how-it-works">How it works</a><a href="about.html">Coverage / About</a><a class="nav-cta" href="quote.html">Get Quote</a></nav></div></header><main><section class="page-hero"><div class="container"><p class="section-label">Quote request</p><h1>Get your flat-rate price.</h1><p class="lead">Share a few details. We’ll measure from satellite imagery and reply with a clear quote — no obligatory walkthrough required to get a number.</p></div></section><section class="section"><div class="container form-layout"><div id="form-card" class="form-card"><div id="form-error-banner" class="form-error-banner" role="alert"></div><form id="quote-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data" novalidate><div class="form-row"><div class="form-group"><label for="name">Full name <span class="req">*</span></label><input type="text" id="name" name="name" required autocomplete="name" placeholder="Jordan Lee"><div class="field-error"></div></div><div class="form-group"><label for="phone">Phone <span class="req">*</span></label><input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="(214) 555-0100"><div class="field-error"></div></div></div><div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com"><div class="field-error"></div></div><div class="form-group"><label for="address">Service address <span class="req">*</span></label><input type="text" id="address" name="address" required autocomplete="street-address" placeholder="123 Oak St, Plano, TX 75024"><div class="field-error"></div></div><div class="form-row"><div class="form-group"><label for="service">Service type <span class="req">*</span></label><select id="service" name="service" required><option value="">Select a service</option><option value="mowing">Lawn Mowing</option><option value="cleanup">Yard Cleanup</option><option value="mulch">Mulch & Flower Beds</option><option value="hedges">Hedge Trimming</option><option value="multiple">Multiple services</option></select><div class="field-error"></div></div><div class="form-group"><label for="lawn-size">Lawn / lot size <span class="req">*</span></label><select id="lawn-size" name="lawn_size" required><option value="">Select size</option><option value="under-5000">Under 5,000 sq ft</option><option value="5000-10000">5,000 – 10,000 sq ft</option><option value="10000-20000">10,000 – 20,000 sq ft</option><option value="over-20000">Over 20,000 sq ft</option><option value="unsure">Not sure — measure for me</option></select><div class="field-error"></div></div></div><div class="form-group"><label for="notes">Project scope / notes</label><textarea id="notes" name="notes" rows="4" placeholder="E.g. bi-weekly mowing starting next month; front beds need fresh mulch; hedges along the driveway need shaping."></textarea><div class="field-error"></div></div><div class="form-group"><label>Photos of your yard <span style="font-weight:400;color:var(--muted)">(optional, up to 5)</span></label><div id="upload-zone" class="upload-zone" role="button" tabindex="0" aria-label="Upload photos"><input type="file" id="photos" name="photos" accept="image/jpeg,image/png,image/webp,image/gif" multiple><p>Tap or drag photos here</p><p class="upload-hint">JPG, PNG, or WebP · max 5 images · 5 MB each</p></div><div id="preview-grid" class="preview-grid"></div></div><input type="hidden" name="_subject" value="New Velora quote request"><input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"><button type="submit" id="submit-btn" class="btn btn-primary btn-block">Get Quote</button></form><div id="form-success" class="form-success" role="status"><h2>Quote request sent</h2><p>Thanks — we got your details. We’ll measure your property and follow up with a flat-rate quote shortly.</p><a href="index.html" class="btn btn-primary">Back to Home</a></div></div><aside class="form-sidebar"><p class="section-label">What happens next</p><h3>From request to scheduled service.</h3><ul><li>We review your address and photos</li><li>Satellite measurement of your lawn and beds</li><li>Flat-rate quote sent to you</li><li>You approve → we schedule service</li></ul><p style="font-size:.875rem;color:var(--muted);margin-top:18px">Prefer to talk first?<br><a href="tel:+15551234567" style="font-weight:700">(555) 123-4567</a><br><span class="placeholder-note">— replace with your phone number</span></p></aside></div></section></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-lockup.svg" alt="Velora"><p>Affordable, tech-enabled residential landscaping for Dallas–Fort Worth homes.</p></div><div class="footer-col"><h4>Navigate</h4><a href="services.html">Services</a><a href="index.html#how-it-works">How it works</a><a href="quote.html">Get Quote</a><a href="about.html">About & Contact</a></div><div class="footer-col"><h4>Services</h4><a href="services.html#mowing">Lawn Mowing</a><a href="services.html#cleanups">Yard Cleanups</a><a href="services.html#mulch">Mulch & Beds</a><a href="services.html#hedges">Hedge Trimming</a></div><div class="footer-col"><h4>Contact</h4><a href="tel:+15551234567">(555) 123-4567</a><a href="mailto:hello@velora.example">hello@velora.example</a><a href="about.html">Hours & areas</a></div></div><div class="footer-bottom"><span>&copy; 2026 Velora. All rights reserved.</span><span>Dallas–Fort Worth, Texas</span></div></div></footer><script src="js/main.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Request a flat-rate landscaping quote from Velora. Satellite measurement, clear pricing, DFW residential service."
+    />
+    <meta property="og:title" content="Get Quote | Velora" />
+    <meta
+      property="og:description"
+      content="Request a flat-rate landscaping quote across Dallas–Fort Worth."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Get Quote | Velora" />
+    <meta
+      name="twitter:description"
+      content="Request a flat-rate landscaping quote across Dallas–Fort Worth."
+    />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="assets/logo/favicon-32.png"
+      sizes="32x32"
+      type="image/png"
+    />
+    <link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Get Quote | Velora Landscaping DFW</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="logo-lockup" href="index.html"
+          ><img src="assets/logo-lockup.svg" alt="Velora"
+        /></a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="services.html">Services</a
+          ><a href="index.html#how-it-works">How it works</a
+          ><a href="about.html">Coverage / About</a
+          ><a class="nav-cta" href="quote.html">Get Quote</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <p class="section-label">Quote request</p>
+          <h1>Get your flat-rate price.</h1>
+          <p class="lead">
+            Share a few details. We’ll measure from satellite imagery and reply
+            with a clear quote — no obligatory walkthrough required to get a
+            number.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container form-layout">
+          <div id="form-card" class="form-card">
+            <div
+              id="form-error-banner"
+              class="form-error-banner"
+              role="alert"
+            ></div>
+            <form
+              id="quote-form"
+              action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+              method="POST"
+              enctype="multipart/form-data"
+              novalidate
+            >
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name"
+                    >Full name
+                    <span class="req" aria-hidden="true">*</span></label
+                  ><input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    autocomplete="name"
+                    placeholder="Jordan Lee"
+                  />
+                  <div class="field-error" aria-live="polite"></div>
+                </div>
+                <div class="form-group">
+                  <label for="phone"
+                    >Phone <span class="req" aria-hidden="true">*</span></label
+                  ><input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    autocomplete="tel"
+                    placeholder="(214) 555-0100"
+                  />
+                  <div class="field-error" aria-live="polite"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label
+                ><input
+                  type="email"
+                  id="email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                />
+                <div class="field-error" aria-live="polite"></div>
+              </div>
+              <div class="form-group">
+                <label for="address"
+                  >Service address
+                  <span class="req" aria-hidden="true">*</span></label
+                ><input
+                  type="text"
+                  id="address"
+                  name="address"
+                  required
+                  autocomplete="street-address"
+                  placeholder="123 Oak St, Plano, TX 75024"
+                />
+                <div class="field-error" aria-live="polite"></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="service"
+                    >Service type
+                    <span class="req" aria-hidden="true">*</span></label
+                  ><select id="service" name="service" required>
+                    <option value="">Select a service</option>
+                    <option value="mowing">Lawn Mowing</option>
+                    <option value="cleanup">Yard Cleanup</option>
+                    <option value="mulch">Mulch & Flower Beds</option>
+                    <option value="hedges">Hedge Trimming</option>
+                    <option value="multiple">Multiple services</option>
+                  </select>
+                  <div class="field-error" aria-live="polite"></div>
+                </div>
+                <div class="form-group">
+                  <label for="lawn-size"
+                    >Lawn / lot size
+                    <span class="req" aria-hidden="true">*</span></label
+                  ><select id="lawn-size" name="lawn_size" required>
+                    <option value="">Select size</option>
+                    <option value="under-5000">Under 5,000 sq ft</option>
+                    <option value="5000-10000">5,000 – 10,000 sq ft</option>
+                    <option value="10000-20000">10,000 – 20,000 sq ft</option>
+                    <option value="over-20000">Over 20,000 sq ft</option>
+                    <option value="unsure">Not sure — measure for me</option>
+                  </select>
+                  <div class="field-error" aria-live="polite"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="notes">Project scope / notes</label
+                ><textarea
+                  id="notes"
+                  name="notes"
+                  rows="4"
+                  placeholder="E.g. bi-weekly mowing starting next month; front beds need fresh mulch; hedges along the driveway need shaping."
+                ></textarea>
+                <div class="field-error" aria-live="polite"></div>
+              </div>
+              <div class="form-group">
+                <label
+                  >Photos of your yard
+                  <span style="font-weight: 400; color: var(--muted)"
+                    >(optional, up to 5)</span
+                  ></label
+                >
+                <div
+                  id="upload-zone"
+                  class="upload-zone"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Upload photos"
+                >
+                  <input
+                    type="file"
+                    id="photos"
+                    name="photos"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    multiple
+                  />
+                  <p>Tap or drag photos here</p>
+                  <p class="upload-hint">
+                    JPG, PNG, or WebP · max 5 images · 5 MB each
+                  </p>
+                </div>
+                <div id="preview-grid" class="preview-grid"></div>
+              </div>
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Velora quote request"
+              /><input
+                type="text"
+                name="_gotcha"
+                style="display: none"
+                tabindex="-1"
+                autocomplete="off"
+              /><button
+                type="submit"
+                id="submit-btn"
+                class="btn btn-primary btn-block"
+              >
+                Get Quote
+              </button>
+            </form>
+            <div id="form-success" class="form-success" role="status">
+              <h2>Quote request sent</h2>
+              <p>
+                Thanks — we got your details. We’ll measure your property and
+                follow up with a flat-rate quote shortly.
+              </p>
+              <a href="index.html" class="btn btn-primary">Back to Home</a>
+            </div>
+          </div>
+          <aside class="form-sidebar">
+            <p class="section-label">What happens next</p>
+            <h3>From request to scheduled service.</h3>
+            <ul>
+              <li>We review your address and photos</li>
+              <li>Satellite measurement of your lawn and beds</li>
+              <li>Flat-rate quote sent to you</li>
+              <li>You approve → we schedule service</li>
+            </ul>
+            <p
+              style="font-size: 0.875rem; color: var(--muted); margin-top: 18px"
+            >
+              Prefer to talk first?<br /><a
+                href="tel:+15551234567"
+                style="font-weight: 700"
+                >(555) 123-4567</a
+              ><br /><span class="placeholder-note"
+                >— replace with your phone number</span
+              >
+            </p>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="assets/logo/primary-transparent.svg" alt="Velora" />
+            <p>
+              Affordable, tech-enabled residential landscaping for Dallas–Fort
+              Worth homes.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Navigate</h4>
+            <a href="services.html">Services</a
+            ><a href="index.html#how-it-works">How it works</a
+            ><a href="quote.html">Get Quote</a
+            ><a href="about.html">About & Contact</a>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <a href="services.html#mowing">Lawn Mowing</a
+            ><a href="services.html#cleanups">Yard Cleanups</a
+            ><a href="services.html#mulch">Mulch & Beds</a
+            ><a href="services.html#hedges">Hedge Trimming</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <a href="tel:+15551234567">(555) 123-4567</a
+            ><a href="mailto:hello@velora.example">hello@velora.example</a
+            ><a href="about.html">Hours & areas</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>&copy; 2026 Velora. All rights reserved.</span
+          ><span>Dallas–Fort Worth, Texas</span>
+        </div>
+      </div>
+    </footer>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -4,7 +4,7 @@
 
 | Field | Value |
 |-------|-------|
-| **File (repo)** | `img/hero-lawn.webp` (2400×1307, 372 KB) · `img/hero-lawn-1200.webp` (1200×654, 160 KB) |
+| **File (repo)** | `img/hero-lawn.webp` (2400×1307, 379,792 bytes) · `img/hero-lawn-1200.webp` (1200×653, 246,810 bytes) |
 | **Source page** | https://www.pexels.com/photo/white-and-gray-wooden-house-near-grass-field-and-trees-280222/ |
 | **Direct download** | https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg |
 | **Fallback CDN** | https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?cs=srgb&dl=pexels-pixabay-280222.jpg&fm=jpg |
@@ -24,6 +24,8 @@ Photo: Curtis Adams / Pexels · https://www.pexels.com/photo/white-and-gray-wood
 - Alt / aria-label: “Sunny suburban front yard with a white house and a professionally striped green lawn”
 
 ## Prior candidates (not used)
-See `img/candidates/NOTES.md` and `img/candidates/sheet.png`. Earlier Geograph CC BY-SA pick was rejected (English cottage + pond, hazy, share-alike).
+An earlier Geograph CC BY-SA candidate was rejected and is not included in this site.
 
 No AI-generated images were used.
+
+Rebuild from the committed original with `python scripts/build-hero.py` (Pillow required). The 2400w export is capped at 380,000 bytes.
