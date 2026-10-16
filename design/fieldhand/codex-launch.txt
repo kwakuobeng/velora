@@ -1,0 +1,107 @@
+Create a GitHub pull request (do NOT push or commit to main).
+
+Repo: kwakuobeng/velora
+New branch name: fieldhand-site-revamp
+Base: main (or m0-scaffold if needed for consistency — prefer main for marketing site only)
+
+When done, reply with the PR URL.
+
+---
+
+You are implementing a visual redesign of the Velora static site to match the Fieldhand-inspired direction documented in ADAPTATION.md and tokens.json.
+
+## Repo
+- GitHub: kwakuobeng/velora
+- Stack: static HTML/CSS + vanilla JS only
+- Pages: index.html, services.html, quote.html, about.html
+- Styles: css/styles.css — put all design tokens in :root
+- JS: js/main.js (Formspree quote form) — keep behavior
+- DO NOT change: Formspree ID / endpoint placeholder, phone, email, hours, city list, address notes
+
+## Reference direction
+Inspired by https://fieldhand.modulify.website/ (Modulify “Fieldhand” template): floating pill nav **over a full-bleed hero**, centered calm headline with italic green accent word, floating product UI under CTAs sitting on the landscape band, quiet proof line (not KPI cards), numbered how-it-works. Adapt for DFW residential landscaping — do not copy Fieldhand illustration art or Modulify branding.
+
+## Tokens (centralize in :root)
+Colors: --forest #2D5F3F; --forest-press #244d33; --limestone #E8DFD0; --oak #1A2E22; --off-white #F7F5F2; --white #fff; --muted #5F6B63; --sage #A8BC9E; --mist #E8EEE9; --hairline rgba(26,46,34,0.08).
+Type: Instrument Sans (display, Google/OFL) + Inter (UI). Load via Google Fonts or self-host.
+--radius-card: 22px; --radius-pill: 999px;
+Shadows: soft card shadow + stronger quote-card shadow; CTA green glow optional.
+Buttons/inputs: font-family: inherit;
+
+## Hero photo (commit these files)
+If internet is enabled, download the original and build the WebPs:
+
+```bash
+mkdir -p img
+curl -L -o /tmp/pexels-280222.jpg \
+  'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg'
+# Fallback if the CDN blocks the bare URL:
+# curl -L -o /tmp/pexels-280222.jpg \
+#   'https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?cs=srgb&dl=pexels-pixabay-280222.jpg&fm=jpg'
+```
+
+Crop & export (ImageMagick or Pillow — match IMAGE-CREDITS.md):
+- Source: 4288×2848 (Curtis Adams / Pexels photo 280222).
+- Crop vertical band from **10% → 92%** of height (full width) so the **house sits in the upper third** and **diagonal lawn stripes dominate** the lower frame. Keep the left tree shadow.
+- Resize → `img/hero-lawn.webp` at **2400w** (target **under 400 KB**, e.g. `cwebp -size 380000`).
+- Also `img/hero-lawn-1200.webp` at 1200w for mobile/`image-set`.
+- **Manual-upload fallback:** if curl fails (CDN block / no network), ask Kwaku to drop the JPEG into the repo and run the same crop/export locally; do not invent a substitute photo.
+
+CSS:
+- `background-size: cover;`
+- `background-position: center 42%;` (mobile ≈ `center 48%`).
+- **Scrim** (required for WCAG AA over bright sky):
+
+```css
+background-image:
+  linear-gradient(180deg,
+    rgba(247,245,242,0.92) 0%,
+    rgba(247,245,242,0.85) 16%,
+    rgba(247,245,242,0.62) 34%,
+    rgba(247,245,242,0.18) 52%,
+    rgba(26,46,34,0.18) 72%,
+    rgba(26,46,34,0.38) 100%),
+  url("img/hero-lawn.webp");
+```
+
+Optional text-block boost: radial off-white behind `.hero-content` (~70% → transparent) so H1 / lede / ghost link stay AA.
+- Lede text color prefer `#3F4A44` (darker than `--muted`) over the sky scrim.
+- Primary CTA Get Quote: white on `--forest` (#2D5F3F).
+- Alt / `aria-label` on hero band: `Sunny suburban front yard with a white house and a professionally striped green lawn`
+- Courtesy credit (attribution **not** required by Pexels License, but keep it):  
+  `Photo: Curtis Adams / Pexels` → https://www.pexels.com/photo/white-and-gray-wooden-house-near-grass-field-and-trees-280222/  
+  Do **not** use Geograph / CC BY-SA credits.
+
+## Global UI
+- Floating centered pill nav on all pages: **Swiss-forest lockup** (Velora wordmark + Swiss-style cross/plus mark in forest — **not** a leaf) · Services · How it works · Coverage/About · forest pill **Get Quote** (white text, sentence case). Use `assets/logo-lockup.svg`.
+- Mobile: collapse center links; keep logo + Get Quote.
+- Primary CTA label everywhere on marketing pages: **Get Quote** → quote.html
+- Soft off-white page ground; white cards; oak text; forest accents.
+- No stock/AI photos besides the committed Pexels hero above.
+- Label any sample $ amounts as **Example pricing** / Sample quote. $45 is placeholder; Kwaku supplies real prices.
+
+## index.html
+1. Full-bleed hero band with lawn photo + scrim above; floating pill nav over the photo — not in an inset tinted box.
+2. Hero content (centered): eyebrow “Dallas–Fort Worth lawn care”; H1 “Know the price *before* we mow.” (Instrument Sans; *before* italic forest); lede with product flow Request quote → satellite measure → flat-rate price → scheduled service; Get Quote + View Services.
+3. Single floating quote card (loudest) over the lawn with soft shadow — **no side glass chips**: Sample flat-rate quote · Locked · Plano, TX · 0.25 acre · Bi-weekly mowing $45 · Edging & blow-off Included · giant $45/visit · Example pricing · Get Quote.
+4. **Proof line (no boxed cards, no invented metrics):** quiet centered H2 + inline row — “Flat rate, locked per visit” · “Measured by satellite, no site visit” · “No surprise add-on fees”.
+5. How it works: 01 Request quote · 02 Satellite measure · 03 Flat-rate price · 04 Scheduled service. Customer copy: “Every homeowner sees the same clear path, with no haggling and no vague estimates.”
+6. Keep/adapt remaining sections to same tokens.
+
+## services.html / quote.html / about.html
+Same nav/footer/tokens as prior Fieldhand brief. Keep Formspree + js/main.js field names/IDs on quote.html.
+
+## Assets
+- Commit `img/hero-lawn.webp` + `img/hero-lawn-1200.webp` (from IMAGE-CREDITS.md). Keep courtesy credit visible.
+- Logo (locked Swiss forest): copy from `/workspace/velora-design/revamp-bookmark-pack/logo/final-swiss-forest/`
+  - `assets/logo-lockup.svg` ← `logo-lockup.svg` (oak + forest cross + Velora wordmark, transparent — for white pill nav)
+  - `assets/favicon.svg` ← `favicon.svg` (black plate, white + forest Swiss cross/plus — **not** a leaf)
+  - Also commit `favicon-32.png` / `apple-touch-icon.png` if useful for HTML `<link>` tags
+- OG/Twitter text meta on all pages; optional og:image using hero-lawn.
+- Note: Logotouse Pro/Lifetime commercial license still required before public launch.
+
+## Anti-slop
+No soft sage blobs, no glassmorphism everywhere (frost nav only), no hard Stripe-Yard 3px borders, no countdown badges, no KPI/stat card grids with invented numbers, no inset hero “card” at desktop, no AI images, no Lorem, no Geograph CC BY-SA asset.
+
+## Done when
+All 4 pages share :root tokens; Get Quote + flat-rate sample are visually loudest on index; form still posts to same Formspree placeholder; contact details and city list unchanged; mobile nav usable at 390px; hero text passes WCAG AA over the scrim.
